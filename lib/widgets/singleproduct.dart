@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:news/provider/news_saved_provider.dart';
 import 'package:news/screens/detail_screen.dart';
+import 'package:provider/provider.dart';
 
 class SingleProduct extends StatelessWidget {
   final String name;
@@ -16,12 +18,15 @@ class SingleProduct extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => DetailScreen(
-                  name: name,
-                  time: time,
-                  image: image,
-                  content: content,
-                )));
+            builder: (context) => ChangeNotifierProvider.value(
+              value: context.read<NewsSavedProvider>(),
+              child: DetailScreen(
+                    name: name,
+                    time: time,
+                    image: image,
+                    content: content,
+                  ),
+            )));
       },
       child: Card(
         child: Container(

@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news/model/news.dart';
+import 'package:news/provider/news_saved_provider.dart';
 import 'package:news/screens/save_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -15,13 +18,17 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text('Chi tiết')),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.share)),
-          IconButton(onPressed: (){}, icon: Icon(Icons.save)),
-        ],
-      ),
+      appBar: AppBar(title: const Center(child: Text('Chi tiết')), actions: [
+        IconButton(onPressed: () {}, icon: Icon(Icons.share)),
+        Consumer<NewsSavedProvider>(builder: (context, value, _) {
+          return IconButton(
+              onPressed: () {
+                context.read<NewsSavedProvider>().addNew(News(
+                    name: name, image: image, content: content, time: time));
+              },
+              icon: Icon(Icons.save));
+        })
+      ]),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

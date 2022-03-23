@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:news/provider/database.dart';
+import 'package:news/provider/news_saved_provider.dart';
 import 'package:news/screens/home_screen.dart';
+import 'package:news/screens/save_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -24,6 +26,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<Database>(
             create: (ctx) => Database(),
           ),
+          ChangeNotifierProvider<NewsSavedProvider>(
+              create: (context) => NewsSavedProvider())
         ],
         child: HomeScreen(),
       ),

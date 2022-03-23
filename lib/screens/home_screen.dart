@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news/model/news.dart';
 import 'package:news/provider/database.dart';
+import 'package:news/provider/news_saved_provider.dart';
 import 'package:news/screens/save_screen.dart';
 import 'package:news/screens/send_email_screen.dart';
 import 'package:provider/provider.dart';
@@ -304,25 +305,33 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.save,color: Colors.white,),
+                  const Icon(
+                    Icons.save,
+                    color: Colors.white,
+                  ),
                   const SizedBox(
                     width: 20,
                   ),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (ctx) => SaveScreen(),
+                          builder: (ctx) => ChangeNotifierProvider.value(
+                              value: context.read<NewsSavedProvider>(),
+                              child: SaveScreen()),
                         ),
                       );
                     },
-                    child:const  Text("Tin đã lưu",style: TextStyle(
+                    child: const Text(
+                      "Tin đã lưu",
+                      style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white,),),
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -333,19 +342,25 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.remove_red_eye,color: Colors.white,),
+                  const Icon(
+                    Icons.remove_red_eye,
+                    color: Colors.white,
+                  ),
                   const SizedBox(
                     width: 20,
                   ),
                   InkWell(
-                    onTap: (){},
-                    child:const  Text("Tin đã xem",style: TextStyle(
+                    onTap: () {},
+                    child: const Text(
+                      "Tin đã xem",
+                      style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white,),),
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -363,25 +378,32 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.star,color: Colors.white,),
+                  const Icon(
+                    Icons.star,
+                    color: Colors.white,
+                  ),
                   const SizedBox(
                     width: 20,
                   ),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       showDialog(
                         context: context,
-                        barrierDismissible: true, // set to false if you want to force a rating
+                        barrierDismissible:
+                            true, // set to false if you want to force a rating
                         builder: (context) => _dialog,
                       );
                     },
-                    child:const  Text("Đánh giá ứng dụng",style: TextStyle(
+                    child: const Text(
+                      "Đánh giá ứng dụng",
+                      style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white,),),
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -392,25 +414,31 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.email,color: Colors.white,),
+                  const Icon(
+                    Icons.email,
+                    color: Colors.white,
+                  ),
                   const SizedBox(
                     width: 20,
                   ),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (ctx) => SendEmailScreen(),
                         ),
                       );
                     },
-                    child:const  Text("Gửi Email báo cáo",style: TextStyle(
+                    child: const Text(
+                      "Gửi Email báo cáo",
+                      style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white,),),
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ],
               ),
