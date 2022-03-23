@@ -1,42 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:news/model/category.dart';
-import 'package:news/model/product.dart';
+import 'package:news/model/news.dart';
 class Database with ChangeNotifier{
-  // late FirebaseFirestore firestore;
-  //
-  // initilase() {
-  //   firestore = FirebaseFirestore.instance;
-  // }
-  //
-  // Future<List?> read() async {
-  //   QuerySnapshot querySnapshot;
-  //   List docs = [];
-  //   try {
-  //     querySnapshot = await firestore.collection('category').get();
-  //     if (querySnapshot.docs.isNotEmpty) {
-  //       for (var doc in querySnapshot.docs.toList()) {
-  //         Map a = {"id": doc.id, "name": doc['name'], "content": doc['content']};
-  //         docs.add(a);
-  //       }
-  //       return docs;
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
 
   List<Category> tinnongName = [];
   Category tinnongNameData;
 
   Future<void> getTinNongNameData() async {
     List<Category> newList = [];
-    QuerySnapshot performanceIconSnapShot = await Firestore.instance
+    QuerySnapshot tinnongNameSnapShot = await Firestore.instance
         .collection("categoryname")
         .document("rE5oUaBClNTUWDy8amQd")
         .collection("tinnong")
         .getDocuments();
-    for (var element in performanceIconSnapShot.documents) {
+    for (var element in tinnongNameSnapShot.documents) {
             tinnongNameData = Category(name: element.data["name"]);
         newList.add(tinnongNameData);
       }
@@ -48,18 +26,18 @@ class Database with ChangeNotifier{
     return tinnongName;
   }
 
-  List<Product> tinnong = [];
-  Product tinnongData;
+  List<News> tinnong = [];
+  News tinnongData;
 
   Future<void> getTinNongData() async {
-    List<Product> newList = [];
-    QuerySnapshot performanceSnapShot = await Firestore.instance
+    List<News> newList = [];
+    QuerySnapshot tinnongSnapShot = await Firestore.instance
         .collection("category")
         .document("uvgkdVblH7EbyLnwqtW7")
         .collection("tinnong")
         .getDocuments();
-    for (var element in performanceSnapShot.documents) {
-            tinnongData = Product(
+    for (var element in tinnongSnapShot.documents) {
+            tinnongData = News(
             name: element.data["name"],
                 image: element.data["image"],
                 time: element.data["time"],
@@ -70,7 +48,55 @@ class Database with ChangeNotifier{
     notifyListeners();
   }
 
-  List<Product> get getTinNongList {
+  List<News> get getTinNongList {
     return tinnong;
+  }
+  //---------------------------------
+  List<Category> sanphamsoName = [];
+  Category sanphamsoNameData;
+
+  Future<void> getSanPhamSoNameData() async {
+    List<Category> newList = [];
+    QuerySnapshot sanphamsoNameSnapShot = await Firestore.instance
+        .collection("categoryname")
+        .document("rE5oUaBClNTUWDy8amQd")
+        .collection("sanphamso")
+        .getDocuments();
+    for (var element in sanphamsoNameSnapShot.documents) {
+      sanphamsoNameData = Category(name: element.data["name"]);
+      newList.add(sanphamsoNameData);
+    }
+    sanphamsoName = newList;
+    notifyListeners();
+  }
+
+  List<Category> get getSanPhamSoNameList {
+    return sanphamsoName;
+  }
+
+  List<News> sanphamso = [];
+  News sanphamsoData;
+
+  Future<void> getSanPhamSoData() async {
+    List<News> newList = [];
+    QuerySnapshot sanphamsoSnapShot = await Firestore.instance
+        .collection("category")
+        .document("uvgkdVblH7EbyLnwqtW7")
+        .collection("sanphamso")
+        .getDocuments();
+    for (var element in sanphamsoSnapShot.documents) {
+      sanphamsoData = News(
+          name: element.data["name"],
+          image: element.data["image"],
+          time: element.data["time"],
+          content: element.data["content"]);
+      newList.add(sanphamsoData);
+    }
+    sanphamso = newList;
+    notifyListeners();
+  }
+
+  List<News> get getSanPhamSoList {
+    return sanphamso;
   }
 }

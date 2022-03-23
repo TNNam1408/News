@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/model/category.dart';
-import 'package:news/model/product.dart';
+import 'package:news/model/news.dart';
 import 'package:news/provider/database.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +17,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildCategoryName({String name}) {
     return Container(
       color: Colors.amber,
-      height: 40,
-      width: 100,
+      height: 25,
+      width: 120,
       child: Text(
         "$name",
         style:const TextStyle(
@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _BuildTinNong() {
-    List<Product> tinnong = databaseProvider.getTinNongList;
+    List<News> tinnong = databaseProvider.getTinNongList;
     List<Category> tinnongname =
         databaseProvider.getTinNongNameList;
     return Row(
@@ -50,6 +50,29 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _BuildSanPhamSo() {
+    List<News> sanphamso = databaseProvider.getSanPhamSoList;
+    List<Category> sanphamsoname =
+        databaseProvider.getSanPhamSoNameList;
+    return Row(
+      children: sanphamsoname.map((e) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => ListProduct(
+                  name: "Sản Phẩm Số",
+                  snapShot: sanphamso,
+                ),
+              ),
+            );
+          },
+          child: _buildCategoryName(name: e.name),
+        );
+      }).toList(),
+    );
+  }
+
   Widget _buildCategory() {
      return Column(
       children: [
@@ -60,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _BuildTinNong(),
+              _BuildSanPhamSo(),
             ],
           ),
         ),
@@ -72,6 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
     databaseProvider= Provider.of<Database>(context);
     databaseProvider.getTinNongData();
     databaseProvider.getTinNongNameData();
+    databaseProvider.getSanPhamSoData();
+    databaseProvider.getSanPhamSoNameData();
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(

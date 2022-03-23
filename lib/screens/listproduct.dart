@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:news/model/product.dart';
+import 'package:news/model/news.dart';
 import 'package:news/widgets/singleproduct.dart';
 
 class ListProduct extends StatelessWidget {
   final String name;
-  final List<Product> snapShot;
+  final List<News> snapShot;
   const ListProduct({Key key,this.name,this.snapShot}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Tin Nóng",
+        title: Text(
+          name,
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent,
